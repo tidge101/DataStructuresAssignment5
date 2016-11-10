@@ -16,29 +16,72 @@ private:
     V _value;
 };
 
-template <typename T>
+template <typename E>
 class BST{
 public: // public types
-    typedef typename T::Key K; // a key
-    typedef typename T::Value V; // a value
+    typedef typename E::Key K; // a key
+    typedef typename E::Value V; // a value
     class Iterator; // an iterator/position
 public: // public functions
-    SearchTree(); // constructor
+    BST() : T(), n(0){
+        T.addRoot();
+        T.expandExternal(T.root());
+    } // constructor
     int size() const; // number of entries
     bool empty() const; // is the tree empty?
-    Iterator find(const K& k); // find entry with key k
-    Iterator insert(const K& k, const V& x); // insert (k,x)
-    void erase(const K& k) throw(NonexistentElement); // remove key k entry
-    void erase(const Iterator& p); // remove entry at p
-    Iterator begin(); // iterator to first entry
-    Iterator end(); // iterator to end entry
+    Iterator find(const K& k){
+        TPos v = finder(k, root());
+        if(v.isInternal()){return Iterator(v);}
+        else{return end();}
+    } // find entry with key k
+    Iterator insert(const K& k, const V& x){
+        TPos v = inserter(k, x);
+        return Iterator(v);
+    }// insert (k,x)
+    void erase(const K& k) throw(NonexistentElement){
+        TPos v = finder(k, root());
+        if(v.isExternal()){throw NonexistentElement("Erase of nonexistent");}
+        eraser(v);
+    }// remove key k entry
+    void erase(const Iterator& p){eraser(p.v);}// remove entry at p
+    Iterator begin(){
+        TPos v = root();
+        while(v.isInternal()){v = v.left();}
+        return Iterator(v.parent())
+    }// iterator to first entry
+    Iterator end(){return Iterator(T.root())}// iterator to end entry
 protected: // local utilities
     typedef BinaryTree<E> BinaryTree; // linked binary tree
-    typedef typename BinaryTree::Position TPos; // position in the tree
-    TPos root() const; // get virtual root
-    TPos finder(const K& k, const TPos& v); // find utility
-    TPos inserter(const K& k, const V& x); // insert utility
-    TPos eraser(TPos& v); // erase utility
+    typedef typename Position TPos; // position in the tree
+    TPos root() const{return T.root().left();} // get virtual root
+    TPos finder(const K& k, const TPos& v){
+        if(v.isExternal()){return v;}
+        if(k < v->key()){return finder(k, v.left());}
+        else if(v->key < k){return finder(k, v.right());}
+        else{return v;}
+    }// find utility
+    TPos inserter(const K& k, const V& x){
+        TPos v = finder(k, root());
+        while(v.isInternal()){v = finder(k, v.right());}
+        T.expandExternal(v);
+        v->setKey(k);
+        v->setValue(x);
+        return v;
+    }// insert utility
+    TPos eraser(TPos& v){
+        TPos w;
+        if(v.left().isExternal()){w = v.left();}
+        else if(v.right.isExternal()){w = v.right();}
+        else{
+            w = v.right();
+            do{w = w.left();} while(w.isInternal());
+            TPos u = w.parent();
+            v->setKey(u->key());
+            v->setValue(u->value());
+        }
+        n--;
+        return T.removeAboveExternal(w);
+    }// erase utility
     TPos restructure(const TPos& v) // restructure
     throw(BoundaryViolation);
 private: // member data
@@ -53,7 +96,17 @@ public:
         const E& operator*() const { return *v; } // get entry (read only)
         E& operator*() { return *v; } // get entry (read/write)
         bool operator==(const Iterator& p) const // are iterators equal?
-        { return v == p.v; } Iterator& operator++(); // inorder successor
-        friend class SearchTree; // give search tree access
+        { return v == p.v; }
+        Iterator& operator++(){
+            TPos w = v.right();
+            if (w.isInternal()) { // have right subtree?
+                do { v = w; w = w.left(); } // move down left chain
+                while (w.isInternal());
+            }else { w = v.parent(); // get parent
+                while (v == w.right()) // move up right chain
+                { v = w; w = w.parent(); } v = w; // and first link to left
+            }return *this;
+        }// inorder successor
+        friend class BST; // give search tree access
     };
 };

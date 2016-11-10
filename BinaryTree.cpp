@@ -1,15 +1,23 @@
+#include <stddef.h>
+#include <list>
+
+using namespace std;
+
 template <typename T>
-class BinaryTree<T>{
+class BinaryTree{
+//public:
+    //class Position;
+    //class PositionList;
 protected:
     struct Node{
         T& elt;
         Node* par;
         Node* left;
-        Node* rightl
-        Node() : elt, par(NULL), left(NULL), right(NULL)
-    }
+        Node* right;
+        Node() : elt(), par(NULL), left(NULL), right(NULL){}
+    };
 public:
-    class Position<T>{
+    class Position{
     private:
         Node* v;
     public:
@@ -21,7 +29,7 @@ public:
         bool isRoot() const{return v->par == NULL;}
         bool isExternal() const{return v->left == NULL && v->right == NULL;}
     };
-    typedef std::list<Position> PositionList;
+    typedef list<Position> PositionList;
 public:
     BinaryTree(): _root(NULL), n(0){};
     int size() const{return n;}
