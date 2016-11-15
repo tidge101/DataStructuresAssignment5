@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <stack>
 #include "menuOptions.cpp"
 
 void printMenu(){
@@ -19,22 +21,33 @@ void printMenu(){
     << "14: Exit" << endl;
 }
 
+bool exists(const string& name) {
+    ifstream f(name.c_str());
+    return f.good();
+}
+
+BST* readBST(String filename){
+    BST* bst = new BST();
+    ifstream inFile;
+    
+    // Read BST info from file
+    inFile.open(filename);
+    while(!inFile.eof()){
+    
+    }
+    
+    // Populate BST with info read
+    
+    return bst;
+}
+
 int main(int argc, char* argv[]){
     // Check for existence of facultyTable and studentTable files, read BST's masterFaculty and masterStudent from these files if they exist, else create new BST's
-    bool facultyDoesExist = false, studentDoesExist =false;
-    // Check here
-    if(!facultyDoesExist){
-        BST masterFaculty = new BST();
-    }
-    else{
-        // masterFaculty = BST from file
-    }
-    if(!studentDoesExist){
-        BST masterStudent = new BST();
-    }
-    else{
-        // masterStudent = BST from file
-    }
+    bool facultyDoesExist = exists("facultyTable.txt"), studentDoesExist = exists("studentTable.txt");
+    if(!facultyDoesExist){BST masterFaculty = new BST();}
+    else{masterFaculty = readBST("facultyTable.txt");}
+    if(!studentDoesExist){BST masterStudent = new BST();}
+    else{masterStudent = readBST("studentTable.txt");}
     
     // Main functionality
     while(true){
@@ -80,5 +93,13 @@ int main(int argc, char* argv[]){
         case 14: optionFourteen();
             break;
         }
+    }
+    
+    // Write BSTs to files if they exist
+    if(!masterFaculty.empty()){
+        // Traverse and output all info to facultyTable.txt that must be read when deserializing
+    }
+    if(!masterStudent.empty()){
+        
     }
 }
