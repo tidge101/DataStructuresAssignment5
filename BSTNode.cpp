@@ -25,7 +25,7 @@ template <class T>
 class BST {
 
     private:
-    Node<T> *root;
+    Node<T>* root;
 
     void addHelper(Node<T> *root, T personObj) {
         val = personObj.getID();
@@ -127,7 +127,54 @@ class BST {
     void printMaxPath() {
         printMaxPathHelper(this->root);
     }
-
+    
+    Node* getRoot(){
+        return this.root;
+    }
+    
+    void outputPreorderStudentToFile(Node* node, string filename)
+    {
+        if (node == NULL)
+            return;
+        
+        /* first PRINT data of node */
+        ofstream myfile;
+        myfile.open(filename, std::ios::app);
+        myfile << node->nodeKey << endl;
+        myfile << node->value->getGPA() << endl;
+        myfile << node->value->getMajor() << endl;
+        myfile << node->value->getAdvisor() << endl;
+        
+        
+        /* then recur on left subtree */
+        outputPreorderStudentToFile(node->left, filename);
+        
+        /* now recur on right subtree */
+        outputPreorderStudentToFile(node->right, filename);
+    }
+    
+    void outputPreorderFacultyToFile(Node* node, string filename)
+    {
+        if (node == NULL)
+            return;
+        
+        /* first PRINT data of node */
+        ofstream myfile;
+        myfile.open(filename, std::ios::app);
+        myfile << node->nodeKey << endl;
+        myfile << node->value->getDepartment() << endl;
+        int numStudents = node->value->getStudents().size();
+        for(int i = 0; i < numStudents; ++i){
+            myfile << (node->value->getStudents())[i] << endl;
+        }
+        
+        /* then recur on left subtree */
+        outputPreorderFacultyToFile(node->left, filename);
+        
+        /* now recur on right subtree */
+        outputPreorderFacultyToFile(node->right, filename);
+    }
+    
     bool deleteValue(T value) {
         return this->deleteValueHelper(NULL, this->root, value);
     }
