@@ -3,6 +3,10 @@
 #include <stack>
 #include "BSTNode.cpp"
 #include "menuOptions.cpp"
+#include "person.cpp"
+#include "Student.cpp"
+#include "Faculty.cpp"
+#include "BSTNode.cpp"
 
 void printMenu(){
     cout << "Menu" << endl
@@ -30,6 +34,17 @@ bool exists(const string& name) {
 BST* readFacultyBST(String filename){
     BST* bst = new BST();
     ifstream inFile;
+<<<<<<< HEAD
+
+    // Read BST info from file
+    inFile.open(filename);
+    while(!inFile.eof()){
+
+    }
+
+    // Populate BST with info read
+
+=======
     
     // Read BST info from file and
     inFile.open(filename);
@@ -56,6 +71,7 @@ BST* readStudentBST(String filename){
     
     //Populate BST with info read
     
+>>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
     return bst;
 }
 
@@ -65,12 +81,17 @@ int main(int argc, char* argv[]){
     if(!facultyDoesExist){BST masterFaculty = new BST();}
     else{masterFaculty = readFacultyBST("facultyTable.txt");}
     if(!studentDoesExist){BST masterStudent = new BST();}
+<<<<<<< HEAD
+    else{masterStudent = readBST("studentTable.txt");}
+
+=======
     else{masterStudent = readStudentBST("studentTable.txt");}
     
+>>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
     // Main functionality
     while(true){
         printMenu();
-        
+
         int choice = 0;
         cout << "Please choose an option from the menu(1-14): " << endl;
         while(cin >> choice){
@@ -79,7 +100,7 @@ int main(int argc, char* argv[]){
             }
             else{break;}
         }
-        
+
         switch choice{
         case 1: optionOne();
             break;
@@ -112,13 +133,17 @@ int main(int argc, char* argv[]){
             break;
         }
     }
-    
+
     // Write BSTs to files if they exist
     if(!masterFaculty.empty()){
         // Traverse and output all info to facultyTable.txt that must be read when deserializing
         masterFaculty.outputPreorderFacultyToFile(getRoot, "facultyTable.txt");
     }
     if(!masterStudent.empty()){
+<<<<<<< HEAD
+
+=======
         masterStudent.outputPreorderStudentToFile(getRoot, "studentTable.txt");
+>>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
     }
 }

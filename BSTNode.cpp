@@ -184,3 +184,6 @@ class BST {
         return this->deleteValueHelper(NULL, this->root, value);
     }
 };
+int main(){
+  return 0;
+}
