@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <math.h>
 using namespace std;
 
@@ -28,7 +29,7 @@ class BST {
     Node<T>* root;
 
     void addHelper(Node<T> *root, T personObj) {
-        val = personObj.getID();
+        int val = personObj.getID();
         if (root->nodeKey > val) {
             if (!root->left) {
                 root->left = new Node<T>(personObj);
@@ -128,24 +129,24 @@ class BST {
         printMaxPathHelper(this->root);
     }
     
-    Node* getRoot(){
-        return this.root;
+    Node<T>* getRoot(){
+        return this->root;
     }
     
-    void outputPreorderStudentToFile(Node* node, string filename)
+    void outputPreorderStudentToFile(Node<T>* node, string filename)
     {
         if (node == NULL)
             return;
         
         /* first PRINT data of node */
         ofstream myfile;
-        if(node == this.root){myfile.open(filename);}
+        if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
         myfile << node->value->getGPA() << endl;
         myfile << node->value->getMajor() << endl;
         myfile << node->value->getAdvisor() << endl;
-        myfile.close()
+        myfile.close();
         
         
         /* then recur on left subtree */
@@ -155,14 +156,14 @@ class BST {
         outputPreorderStudentToFile(node->right, filename);
     }
     
-    void outputPreorderFacultyToFile(Node* node, string filename)
+    void outputPreorderFacultyToFile(Node<T>* node, string filename)
     {
         if (node == NULL)
             return;
         
         /* first PRINT data of node */
         ofstream myfile;
-        if(node == this.root){myfile.open(filename);}
+        if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
         myfile << node->value->getDepartment() << endl;
@@ -170,7 +171,7 @@ class BST {
         for(int i = 0; i < numStudents; ++i){
             myfile << (node->value->getStudents())[i] << endl;
         }
-        myfile.close()
+        myfile.close();
         
         /* then recur on left subtree */
         outputPreorderFacultyToFile(node->left, filename);
