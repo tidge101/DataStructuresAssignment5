@@ -28,7 +28,7 @@ class BST {
     Node<T> *root;
 
     void addHelper(Node<T> *root, T personObj) {
-        val = personObj.getID();
+        int val = personObj.getID();
         if (root->nodeKey > val) {
             if (!root->left) {
                 root->left = new Node<T>(personObj);
@@ -132,3 +132,6 @@ class BST {
         return this->deleteValueHelper(NULL, this->root, value);
     }
 };
+int main(){
+  return 0;
+}

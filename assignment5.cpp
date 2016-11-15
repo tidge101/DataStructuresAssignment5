@@ -2,6 +2,10 @@
 #include <fstream>
 #include <stack>
 #include "menuOptions.cpp"
+#include "person.cpp"
+#include "Student.cpp"
+#include "Faculty.cpp"
+#include "BSTNode.cpp"
 
 void printMenu(){
     cout << "Menu" << endl
@@ -29,15 +33,15 @@ bool exists(const string& name) {
 BST* readBST(String filename){
     BST* bst = new BST();
     ifstream inFile;
-    
+
     // Read BST info from file
     inFile.open(filename);
     while(!inFile.eof()){
-    
+
     }
-    
+
     // Populate BST with info read
-    
+
     return bst;
 }
 
@@ -48,11 +52,11 @@ int main(int argc, char* argv[]){
     else{masterFaculty = readBST("facultyTable.txt");}
     if(!studentDoesExist){BST masterStudent = new BST();}
     else{masterStudent = readBST("studentTable.txt");}
-    
+
     // Main functionality
     while(true){
         printMenu();
-        
+
         int choice = 0;
         cout << "Please choose an option from the menu(1-14): " << endl;
         while(cin >> choice){
@@ -61,7 +65,7 @@ int main(int argc, char* argv[]){
             }
             else{break;}
         }
-        
+
         switch choice{
         case 1: optionOne();
             break;
@@ -94,12 +98,12 @@ int main(int argc, char* argv[]){
             break;
         }
     }
-    
+
     // Write BSTs to files if they exist
     if(!masterFaculty.empty()){
         // Traverse and output all info to facultyTable.txt that must be read when deserializing
     }
     if(!masterStudent.empty()){
-        
+
     }
 }
