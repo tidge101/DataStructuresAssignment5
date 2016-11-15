@@ -139,11 +139,13 @@ class BST {
         
         /* first PRINT data of node */
         ofstream myfile;
-        myfile.open(filename, std::ios::app);
+        if(node == this.root){myfile.open(filename);}
+        else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
         myfile << node->value->getGPA() << endl;
         myfile << node->value->getMajor() << endl;
         myfile << node->value->getAdvisor() << endl;
+        myfile.close()
         
         
         /* then recur on left subtree */
@@ -160,13 +162,15 @@ class BST {
         
         /* first PRINT data of node */
         ofstream myfile;
-        myfile.open(filename, std::ios::app);
+        if(node == this.root){myfile.open(filename);}
+        else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
         myfile << node->value->getDepartment() << endl;
         int numStudents = node->value->getStudents().size();
         for(int i = 0; i < numStudents; ++i){
             myfile << (node->value->getStudents())[i] << endl;
         }
+        myfile.close()
         
         /* then recur on left subtree */
         outputPreorderFacultyToFile(node->left, filename);
