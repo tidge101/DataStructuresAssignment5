@@ -165,7 +165,3 @@ void Faculty::setStudents(vector<int> input){
 vector<int> Faculty::getStudents(){
   return studentIDs;
 }
-
-int main(){
-  return 0;
-}

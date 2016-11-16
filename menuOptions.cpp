@@ -1,4 +1,4 @@
-using namespace std;
+#include "BSTNode.cpp"
 
 // Print all students and their information (by ascending id #)
 void optionOne(){
@@ -31,32 +31,32 @@ void optionSix(){
 }
 
 // Add a new student
-BST* optionSeven(){
+BST<Student>* optionSeven(){
     
 }
 
 // Delete a student given the id
-BST* optionEight(){
+BST<Student>* optionEight(){
     
 }
 
 // Add a new faculty member
-BST* optionNine(){
+BST<Faculty>* optionNine(){
     
 }
 
 // Delete a faculty member given the id
-BST* optionTen(){
+BST<Faculty>* optionTen(){
     
 }
 
 // Change a student’s advisor given the student id and the new faculty id
-BST* optionEleven(){
+BST<Student>* optionEleven(){
     
 }
 
 // Remove an advisee from a faculty member given the ids
-BST* optionTwelve(){
+BST<Faculty>* optionTwelve(){
     
 }
 
