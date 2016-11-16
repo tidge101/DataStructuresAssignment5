@@ -1,12 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
-#include "BSTNode.cpp"
 #include "menuOptions.cpp"
 #include "person.cpp"
-#include "Student.cpp"
-#include "Faculty.cpp"
-#include "BSTNode.cpp"
 
 void printMenu(){
     cout << "Menu" << endl
@@ -31,25 +27,14 @@ bool exists(const string& name) {
     return f.good();
 }
 
-BST* readFacultyBST(String filename){
-    BST* bst = new BST();
+BST<Faculty>* readFacultyBST(string filename){
+    BST<Faculty>* bst = new BST();
     ifstream inFile;
-<<<<<<< HEAD
-
-    // Read BST info from file
-    inFile.open(filename);
-    while(!inFile.eof()){
-
-    }
-
-    // Populate BST with info read
-
-=======
     
     // Read BST info from file and
     inFile.open(filename);
     while(!inFile.eof()){
-        Node* newNode = new Node();
+        Node<Faculty>* newNode = new Node<Faculty>();
         
     }
     
@@ -58,36 +43,30 @@ BST* readFacultyBST(String filename){
     return bst;
 }
 
-BST* readStudentBST(String filename){
-    BST* bst = new BST();
+BST<Student>* readStudentBST(string filename){
+    BST<Student>* bst = new BST<Student>();
     ifstream inFile;
     
     // Read BST info from file and
     inFile.open(filename);
     while(!inFile.eof()){
-        Node* newNode = new Node();
+        Node<Student>* newNode = new Node();
         
     }
     
     //Populate BST with info read
     
->>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
     return bst;
 }
 
 int main(int argc, char* argv[]){
     // Check for existence of facultyTable and studentTable files, read BST's masterFaculty and masterStudent from these files if they exist, else create new BST's
     bool facultyDoesExist = exists("facultyTable.txt"), studentDoesExist = exists("studentTable.txt");
-    if(!facultyDoesExist){BST masterFaculty = new BST();}
-    else{masterFaculty = readFacultyBST("facultyTable.txt");}
-    if(!studentDoesExist){BST masterStudent = new BST();}
-<<<<<<< HEAD
-    else{masterStudent = readBST("studentTable.txt");}
+    BST<Faculty>* masterFaculty = new BST<Faculty>();
+    BST<Student>* masterStudent = new BST<Student>();
+    if(facultyDoesExist){masterFaculty = readFacultyBST("facultyTable.txt");}
+    if(studentDoesExist){masterStudent = readStudentBST("studentTable.txt");}
 
-=======
-    else{masterStudent = readStudentBST("studentTable.txt");}
-    
->>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
     // Main functionality
     while(true){
         printMenu();
@@ -101,7 +80,7 @@ int main(int argc, char* argv[]){
             else{break;}
         }
 
-        switch choice{
+        switch(choice){
         case 1: optionOne();
             break;
         case 2: optionTwo();
@@ -135,15 +114,11 @@ int main(int argc, char* argv[]){
     }
 
     // Write BSTs to files if they exist
-    if(!masterFaculty.empty()){
+    if(!masterFaculty->empty()){
         // Traverse and output all info to facultyTable.txt that must be read when deserializing
-        masterFaculty.outputPreorderFacultyToFile(getRoot, "facultyTable.txt");
+        masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
     }
-    if(!masterStudent.empty()){
-<<<<<<< HEAD
-
-=======
-        masterStudent.outputPreorderStudentToFile(getRoot, "studentTable.txt");
->>>>>>> 90a72e07164b8530788ec7907eea08d5328725c4
+    if(!masterStudent->empty()){
+        masterStudent->outputPreorderStudentToFile(masterStudent->getRoot(), "studentTable.txt");
     }
 }
