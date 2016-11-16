@@ -1,4 +1,5 @@
 #include "BSTNode.cpp"
+#include "Person.cpp"
 
 // Print all students and their information (by ascending id #)
 void optionOne(){

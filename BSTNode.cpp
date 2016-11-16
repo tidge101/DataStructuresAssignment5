@@ -143,6 +143,7 @@ class BST {
         if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
+        myfile << node->value.getName() << endl;
         myfile << node->value.getGPA() << endl;
         myfile << node->value.getMajor() << endl;
         myfile << node->value.getAdvisor() << endl;
@@ -166,6 +167,7 @@ class BST {
         if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
+        myfile << node->value.getName() << endl;
         myfile << node->value.getDepartment() << endl;
         int numStudents = node->value.getStudents().size();
         for(int i = 0; i < numStudents; ++i){

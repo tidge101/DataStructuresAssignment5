@@ -2,7 +2,6 @@
 #include <fstream>
 #include <stack>
 #include "menuOptions.cpp"
-#include "person.cpp"
 
 void printMenu(){
     cout << "Menu" << endl
