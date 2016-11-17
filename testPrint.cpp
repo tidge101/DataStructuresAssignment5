@@ -15,4 +15,8 @@ int main(){
     studTree->add(*stud);
 
     studTree->print();
+    
+//    studTree->deleteValue(*stud);
+//    
+//    studTree->print();
 }

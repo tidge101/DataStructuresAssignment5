@@ -115,6 +115,7 @@ class BST {
 
     void print() {
         printHelper(this->root);
+        cout << endl;
     }
 
     bool empty(){
