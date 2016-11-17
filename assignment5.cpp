@@ -45,7 +45,7 @@ BST<Faculty>* readFacultyBST(string filename){
         tempFac->setDepartment(tempDepartment);
         tempFac->setStudents(tempStudentList);
         // tempFac.
-        Node<Faculty>* newNode = new Node<Faculty>(tempFac);
+        Node<Faculty>* newNode = new Node<Faculty>(*tempFac);
 
     }
 
@@ -76,7 +76,7 @@ BST<Student>* readStudentBST(string filename){
       tempStudent->setAdvisor(tempAdvisor);
 
 
-        Node<Student>* newNode = new Node<Student>(tempStudent);
+        Node<Student>* newNode = new Node<Student>(*tempStudent);
 
     }
 

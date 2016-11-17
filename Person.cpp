@@ -59,9 +59,9 @@ class Student : public Person{
     string Major;
   public:
     Student(){};
-    Student(double GPAInput, int AdvisorNum);
+    Student(string name, int IDNum, string major, double GPAInput, int AdvisorNum);
     ~Student(){};
-    
+
     void operator = (Student* S) {
         setName(S->getName());
         setAdvisor(S->getAdvisor());
@@ -81,9 +81,12 @@ class Student : public Person{
     void outputStudentInfo();
 };
 
-Student::Student(double GPAInput, int AdvisorNum){
+Student::Student(string name, int IDNum, string major, double GPAInput, int AdvisorNum){
   setGPA(GPAInput);
   setAdvisor(AdvisorNum);
+  setMajor(major);
+  setName(name);
+  setID(IDNum);
 }
 
 void Student::outputStudentInfo(){
@@ -125,9 +128,9 @@ class Faculty : public Person{
     vector<int> studentIDs;
 
   public:
-    Faculty();
+    Faculty(){};
     Faculty(string depInput, vector<int> studentList);
-    ~Faculty();
+    ~Faculty(){};
 
     void operator = (Faculty* F) {
         setName(F->getName());
@@ -135,7 +138,7 @@ class Faculty : public Person{
         setStudents(F->getStudents());
         setDepartment(F->getDepartment());
     }
-    
+
     void VectorToString(vector<int> a);
 
     void setDepartment(string input);

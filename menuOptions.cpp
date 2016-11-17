@@ -32,7 +32,30 @@ void optionSix(){
 }
 
 // Add a new student
-BST<Student>* optionSeven(){
+BST<Student>* optionSeven(BST<Student> *studTree){
+    string addName;
+    string addID;
+    string addGPA;
+    string addMajor;
+    string addAdvisor;
+
+    cout << "Please enter student's name: " << endl;
+    cin >> addName;
+    cout << "Please enter student's ID Number: " << endl;
+    cin >> addID;
+    cout << "Please enter student's GPA: " << endl;
+    cin >> addGPA;
+    cout << "Please enter student's Major: " << endl;
+    cin >> addMajor;
+    cout << "Please enter student's advisor's ID Number: " << endl;
+    cin >> addAdvisor;
+
+    Student* a = new Student(addName, stoi(addID), addMajor, stod(addGPA), stoi(addAdvisor));
+    studTree->add(*a);
+    cout << "Added student:: ";
+    a->outputStudentInfo();
+
+    return studTree;
 
 }
 
