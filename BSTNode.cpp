@@ -5,20 +5,16 @@ using namespace std;
 
 template <class T>
 struct Node {
-    T value;
+    T element;
     Node *left;
     Node *right;
     int nodeKey;
 
-    Node(T val) {
-        this->value = val;
-    }
-
-    Node(T val, Node<T> left, Node<T> right) {
-        this->nodeKey = val.getID();
-        this->value = val;
-        this->left = left;
-        this->right = right;
+    Node(T* elem) {
+        this->nodeKey = elem->getID();
+        this->element = elem;
+        this->left = NULL;
+        this->right = NULL;
     }
 };
 
@@ -44,6 +40,8 @@ class BST {
             }
         }
     }
+
+
 
     void printHelper(Node<T> *root) {
         if (!root) return;
@@ -92,9 +90,9 @@ class BST {
                 while (validSubs->left) {
                     validSubs = validSubs->left;
                 }
-                T temp = current->value;
-                current->nodeKey = validSubs->nodeKey;
-                validSubs->nodeKey = temp;
+                T* temp = current->element;
+                current->element = validSubs->nodeKey;
+                validSubs->element = temp;
                 return deleteValueHelper(current, current->right, temp);
             }
             delete current;
@@ -117,6 +115,10 @@ class BST {
         printHelper(this->root);
     }
 
+    bool empty(){
+      return root == NULL;
+    }
+
     int nodesCount() {
         return nodesCountHelper(root);
     }
@@ -128,58 +130,58 @@ class BST {
     void printMaxPath() {
         printMaxPathHelper(this->root);
     }
-    
+
     Node<T>* getRoot(){
         return this->root;
     }
-    
+
     void outputPreorderStudentToFile(Node<T>* node, string filename)
     {
         if (node == NULL)
             return;
-        
+
         /* first PRINT data of node */
         ofstream myfile;
         if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
-        myfile << node->value.getGPA() << endl;
-        myfile << node->value.getMajor() << endl;
-        myfile << node->value.getAdvisor() << endl;
+        myfile << node->element.getGPA() << endl;
+        myfile << node->element.getMajor() << endl;
+        myfile << node->element.getAdvisor() << endl;
         myfile.close();
-        
-        
+
+
         /* then recur on left subtree */
         outputPreorderStudentToFile(node->left, filename);
-        
+
         /* now recur on right subtree */
         outputPreorderStudentToFile(node->right, filename);
     }
-    
+
     void outputPreorderFacultyToFile(Node<T>* node, string filename)
     {
         if (node == NULL)
             return;
-        
+
         /* first PRINT data of node */
         ofstream myfile;
         if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
-        myfile << node->value.getDepartment() << endl;
-        int numStudents = node->value.getStudents().size();
+        myfile << node->element.getDepartment() << endl;
+        int numStudents = node->element.getStudents().size();
         for(int i = 0; i < numStudents; ++i){
-            myfile << (node->value.getStudents())[i] << endl;
+            myfile << (node->element.getStudents())[i] << endl;
         }
         myfile.close();
-        
+
         /* then recur on left subtree */
         outputPreorderFacultyToFile(node->left, filename);
-        
+
         /* now recur on right subtree */
         outputPreorderFacultyToFile(node->right, filename);
     }
-    
+
     bool deleteValue(T value) {
         return this->deleteValueHelper(NULL, this->root, value);
     }

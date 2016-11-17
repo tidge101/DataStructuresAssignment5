@@ -2,13 +2,8 @@
 #include <fstream>
 #include <stack>
 #include "menuOptions.cpp"
-#include "person.cpp"
-<<<<<<< HEAD
-// #include "Student.cpp"
-// #include "Faculty.cpp"
-#include "BSTNode.cpp"
-=======
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
+// #include "BSTNode.cpp"
+
 
 void printMenu(){
     cout << "Menu" << endl
@@ -34,24 +29,26 @@ bool exists(const string& name) {
 }
 
 BST<Faculty>* readFacultyBST(string filename){
-    BST<Faculty>* bst = new BST();
+    BST<Faculty>* bst = new BST<Faculty>();
     ifstream inFile;
-<<<<<<< HEAD
-
 
     // Read BST info from file and
     inFile.open(filename);
     while(!inFile.eof()){
-        Node* newNode = new Node();
+        //PUT FACULTY VARIABLES HERE
+        int tempID;
+        string tempName;
+        string tempDepartment;
+        vector<int> tempStudentList;
+        Faculty* tempFac;
 
-=======
-    
-    // Read BST info from file and
-    inFile.open(filename);
-    while(!inFile.eof()){
-        Node<Faculty>* newNode = new Node<Faculty>();
-        
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
+        tempFac->setID(tempID);
+        tempFac->setName(tempName);
+        tempFac->setDepartment(tempDepartment);
+        tempFac->setStudents(tempStudentList);
+        // tempFac.
+        Node<Faculty>* newNode = new Node<Faculty>(tempFac);
+
     }
 
     //Populate BST with info read
@@ -66,38 +63,37 @@ BST<Student>* readStudentBST(string filename){
     // Read BST info from file and
     inFile.open(filename);
     while(!inFile.eof()){
-<<<<<<< HEAD
-        Node* newNode = new Node();
 
-=======
-        Node<Student>* newNode = new Node();
-        
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
+      int tempID;
+      string tempName;
+      double tempGPA;
+      int tempAdvisor;
+      string tempMajor;
+      Student* tempStudent;
+
+      tempStudent->setID(tempID);
+      tempStudent->setName(tempName);
+      tempStudent->setGPA(tempGPA);
+      tempStudent->setMajor(tempMajor);
+      tempStudent->setAdvisor(tempAdvisor);
+
+
+        Node<Student>* newNode = new Node<Student>(tempStudent);
+
     }
 
     //Populate BST with info read
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
     return bst;
 }
 
 int main(int argc, char* argv[]){
     // Check for existence of facultyTable and studentTable files, read BST's masterFaculty and masterStudent from these files if they exist, else create new BST's
     bool facultyDoesExist = exists("facultyTable.txt"), studentDoesExist = exists("studentTable.txt");
-<<<<<<< HEAD
-    if(!facultyDoesExist){BST masterFaculty = new BST();}
-    else{masterFaculty = readFacultyBST("facultyTable.txt");}
-    if(!studentDoesExist){BST masterStudent = new BST();}
-    else{masterStudent = readStudentBST("studentTable.txt");}
-=======
     BST<Faculty>* masterFaculty = new BST<Faculty>();
     BST<Student>* masterStudent = new BST<Student>();
     if(facultyDoesExist){masterFaculty = readFacultyBST("facultyTable.txt");}
     if(studentDoesExist){masterStudent = readStudentBST("studentTable.txt");}
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
+
 
     // Main functionality
     while(true){
@@ -150,12 +146,9 @@ int main(int argc, char* argv[]){
         // Traverse and output all info to facultyTable.txt that must be read when deserializing
         masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
     }
-<<<<<<< HEAD
-    if(!masterStudent.empty()){
-        masterStudent.outputPreorderStudentToFile(getRoot, "studentTable.txt");
-=======
+
     if(!masterStudent->empty()){
         masterStudent->outputPreorderStudentToFile(masterStudent->getRoot(), "studentTable.txt");
->>>>>>> f397e43cbfb8c1b6f6d1162cf11caa716143ee76
+
     }
 }
