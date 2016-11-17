@@ -129,7 +129,7 @@ class Faculty : public Person{
 
   public:
     Faculty(){};
-    Faculty(string depInput, vector<int> studentList);
+    Faculty(string name, int id, string depInput, vector<int> studentList);
     ~Faculty(){};
 
     void operator = (Faculty* F) {
@@ -151,9 +151,11 @@ class Faculty : public Person{
 
 };
 
-Faculty::Faculty(string depInput, vector<int> studentList){
+Faculty::Faculty(string name, int id, string depInput, vector<int> studentList){
   setDepartment(depInput);
   setStudents(studentList);
+  setID(id);
+  setName(name);
 }
 
 void Faculty::VectorToString(vector<int> a){

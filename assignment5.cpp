@@ -121,19 +121,23 @@ int main(int argc, char* argv[]){
             break;
         case 4:
             cout << "Please enter ID of Student to print info of: ";
-            cin >> studentIDToFetch;
+            cin >> facultyIDToFetch;
             cout << endl;
             optionFour(masterFaculty, facultyIDToFetch);
             break;
-        case 5: optionFive();
+        case 5:
+            cout << "Please enter ID of student to print their advisor's information: ";
+            cin >> studentIDToFetch;
+            cout << endl;
+            optionFive(masterStudent, masterFaculty, studentIDToFetch);
             break;
         case 6: optionSix();
             break;
-        case 7: optionSeven();
+        case 7: optionSeven(masterStudent);
             break;
         case 8: optionEight();
             break;
-        case 9: optionNine();
+        case 9: optionNine(masterFaculty);
             break;
         case 10: optionTen();
             break;
