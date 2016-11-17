@@ -3,6 +3,8 @@
 #include <math.h>
 using namespace std;
 
+
+
 template <class T>
 struct Node {
     T element;
@@ -10,8 +12,8 @@ struct Node {
     Node *right;
     int nodeKey;
 
-    Node(T* elem) {
-        this->nodeKey = elem->getID();
+    Node(T elem) {
+        this->nodeKey = elem.getID();
         this->element = elem;
         this->left = NULL;
         this->right = NULL;
@@ -34,9 +36,9 @@ class BST {
             }
         } else {
             if (!root->right) {
-                root->right = new Node<T>(val);
+                root->right = new Node<T>(personObj);
             } else {
-                addHelper(root->right, val);
+                addHelper(root->right, personObj);
             }
         }
     }

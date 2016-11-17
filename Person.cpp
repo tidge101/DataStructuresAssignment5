@@ -58,9 +58,9 @@ class Student : public Person{
     int AdvisorID;
     string Major;
   public:
-    Student();
+    Student(){};
     Student(double GPAInput, int AdvisorNum);
-    ~Student();
+    ~Student(){};
     
     void operator = (Student* S) {
         setName(S->getName());
