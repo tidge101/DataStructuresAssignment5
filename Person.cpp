@@ -125,9 +125,9 @@ class Faculty : public Person{
     vector<int> studentIDs;
 
   public:
-    Faculty();
+    Faculty(){};
     Faculty(string depInput, vector<int> studentList);
-    ~Faculty();
+    ~Faculty(){};
 
     void operator = (Faculty* F) {
         setName(F->getName());

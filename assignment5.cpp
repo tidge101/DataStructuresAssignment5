@@ -45,7 +45,7 @@ BST<Faculty>* readFacultyBST(string filename){
         tempFac->setDepartment(tempDepartment);
         tempFac->setStudents(tempStudentList);
         // tempFac.
-        Node<Faculty>* newNode = new Node<Faculty>(tempFac);
+        Node<Faculty>* newNode = new Node<Faculty>(*tempFac);
 
     }
 
@@ -76,7 +76,7 @@ BST<Student>* readStudentBST(string filename){
       tempStudent->setAdvisor(tempAdvisor);
 
 
-        Node<Student>* newNode = new Node<Student>(tempStudent);
+        Node<Student>* newNode = new Node<Student>(*tempStudent);
 
     }
 
@@ -106,14 +106,24 @@ int main(int argc, char* argv[]){
             else{break;}
         }
 
+        int studentIDToFetch = 0;
+        int facultyIDToFetch = 0;
         switch(choice){
-        case 1: optionOne();
+        case 1: optionOne(masterStudent);
             break;
-        case 2: optionTwo();
+        case 2: optionTwo(masterFaculty);
             break;
-        case 3: optionThree();
+        case 3:
+            cout << "Please enter ID of Student to print info of: ";
+            cin >> studentIDToFetch;
+            cout << endl;
+            optionThree(masterStudent, studentIDToFetch);
             break;
-        case 4: optionFour();
+        case 4:
+            cout << "Please enter ID of Student to print info of: ";
+            cin >> studentIDToFetch;
+            cout << endl;
+            optionFour(masterFaculty, facultyIDToFetch);
             break;
         case 5: optionFive();
             break;

@@ -137,6 +137,53 @@ class BST {
     Node<T>* getRoot(){
         return this->root;
     }
+    
+    bool search(int num)
+    {
+        Node<T> *temp = getRoot();
+        
+        while (temp != NULL)
+        {
+            if (temp->nodeKey == num)
+                break;
+            
+            if (num > temp->nodeKey)
+                temp = temp->right;
+            else                  //  <--- Put this 'else' here
+                if (num < temp->nodeKey)
+                    temp = temp->left;
+        }
+        
+        if (temp == NULL)
+            return false;
+        
+        if (temp->nodeKey == num)
+            return true;
+        
+        return false;
+    }
+    
+    Node<T>* fetch(int num)
+    {
+        Node<T> *temp = getRoot();
+        
+        while (temp != NULL)
+        {
+            if (temp->nodeKey == num)
+                break;
+            
+            if (num > temp->nodeKey)
+                temp = temp->right;
+            else                  //  <--- Put this 'else' here
+                if (num < temp->nodeKey)
+                    temp = temp->left;
+        }
+        
+        if (temp->nodeKey == num)
+            return temp;
+        
+        return getRoot();
+    }
 
     void outputPreorderStudentToFile(Node<T>* node, string filename)
     {
