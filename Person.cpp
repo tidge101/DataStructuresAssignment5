@@ -61,6 +61,13 @@ class Student : public Person{
     Student();
     Student(double GPAInput, int AdvisorNum);
     ~Student();
+    
+    void operator = (Student* S) {
+        setName(S->getName());
+        setAdvisor(S->getAdvisor());
+        setGPA(S->getGPA());
+        setMajor(S->getMajor());
+    }
 
     void setGPA(double input);
     double getGPA();
@@ -122,6 +129,13 @@ class Faculty : public Person{
     Faculty(string depInput, vector<int> studentList);
     ~Faculty();
 
+    void operator = (Faculty* F) {
+        setName(F->getName());
+        setID(F->getID());
+        setStudents(F->getStudents());
+        setDepartment(F->getDepartment());
+    }
+    
     void VectorToString(vector<int> a);
 
     void setDepartment(string input);

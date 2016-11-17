@@ -145,10 +145,10 @@ class BST {
         if(node == this->root){myfile.open(filename);}
         else{myfile.open(filename, std::ios::app);}
         myfile << node->nodeKey << endl;
-        myfile << node->value.getName() << endl;
-        myfile << node->value.getGPA() << endl;
-        myfile << node->value.getMajor() << endl;
-        myfile << node->value.getAdvisor() << endl;
+        myfile << node->element.getName() << endl;
+        myfile << node->element.getGPA() << endl;
+        myfile << node->element.getMajor() << endl;
+        myfile << node->element.getAdvisor() << endl;
         myfile.close();
 
 
