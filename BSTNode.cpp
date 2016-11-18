@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <vector>
 using namespace std;
 
 
@@ -137,51 +138,51 @@ class BST {
     Node<T>* getRoot(){
         return this->root;
     }
-    
+
     bool search(int num)
     {
         Node<T> *temp = getRoot();
-        
+
         while (temp != NULL)
         {
             if (temp->nodeKey == num)
                 break;
-            
+
             if (num > temp->nodeKey)
                 temp = temp->right;
             else                  //  <--- Put this 'else' here
                 if (num < temp->nodeKey)
                     temp = temp->left;
         }
-        
+
         if (temp == NULL)
             return false;
-        
+
         if (temp->nodeKey == num)
             return true;
-        
+
         return false;
     }
-    
+
     Node<T>* fetch(int num)
     {
         Node<T> *temp = getRoot();
-        
+
         while (temp != NULL)
         {
             if (temp->nodeKey == num)
                 break;
-            
+
             if (num > temp->nodeKey)
                 temp = temp->right;
             else                  //  <--- Put this 'else' here
                 if (num < temp->nodeKey)
                     temp = temp->left;
         }
-        
+
         if (temp->nodeKey == num)
             return temp;
-        
+
         return getRoot();
     }
 
@@ -221,9 +222,10 @@ class BST {
         myfile << node->nodeKey << endl;
         myfile << node->element.getName() << endl;
         myfile << node->element.getDepartment() << endl;
-        int numStudents = node->element.getStudents().size();
+        int numStudents = node->element.getStudents()->size();
+        vector<int>* tempVecStud = node->element.getStudents();
         for(int i = 0; i < numStudents; ++i){
-            myfile << (node->element.getStudents())[i] << endl;
+            myfile << (*tempVecStud)[i] << endl;
         }
         myfile.close();
 
