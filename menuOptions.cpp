@@ -1,14 +1,102 @@
 #include "BSTNode.cpp"
 #include "Person.cpp"
 
+/* Compute the "height" of a tree -- the number of
+ nodes along the longest path from the root node
+ down to the farthest leaf node.*/
+int heightStudent(Node<Student>* node)
+{
+    if (node==NULL)
+        return 0;
+    else
+    {
+        /* compute the height of each subtree */
+        int lheight = heightStudent(node->left);
+        int rheight = heightStudent(node->right);
+        
+        /* use the larger one */
+        if (lheight > rheight)
+            return(lheight+1);
+        else return(rheight+1);
+    }
+}
+
+int heightFaculty(Node<Faculty>* node)
+{
+    if (node==NULL)
+        return 0;
+    else
+    {
+        /* compute the height of each subtree */
+        int lheight = heightFaculty(node->left);
+        int rheight = heightFaculty(node->right);
+        
+        /* use the larger one */
+        if (lheight > rheight)
+            return(lheight+1);
+        else return(rheight+1);
+    }
+}
+
+
+/* Print nodes at a given level */
+void printGivenLevelStudent(Node<Student>* root, int level)
+{
+    if (root == NULL)
+        return;
+    if (level == 1)
+        root->element.outputStudentInfo();
+    else if (level > 1)
+    {
+        printGivenLevelStudent(root->left, level-1);
+        printGivenLevelStudent(root->right, level-1);
+    }
+}
+
+/* Print nodes at a given level */
+void printGivenLevelFaculty(Node<Faculty>* root, int level)
+{
+    if (root == NULL)
+        return;
+    if (level == 1)
+        root->element.outputFacultyInfo();
+    else if (level > 1)
+    {
+        printGivenLevelFaculty(root->left, level-1);
+        printGivenLevelFaculty(root->right, level-1);
+    }
+}
+
+/* Function to print level order traversal a tree*/
+void printLevelOrderStudent(Node<Student>* root)
+{
+    int h = heightStudent(root);
+    int i;
+    for (i=1; i<=h; i++)
+        printGivenLevelStudent(root, i);
+}
+
+/* Function to print level order traversal a tree*/
+void printLevelOrderFaculty(Node<Faculty>* root)
+{
+    int h = heightFaculty(root);
+    int i;
+    for (i=1; i<=h; i++)
+        printGivenLevelFaculty(root, i);
+}
+
 // Print all students and their information (by ascending id #)
 void optionOne(BST<Student>* studTree){
-
+    cout << endl << "All students: " << endl;
+    printLevelOrderStudent(studTree->getRoot());
+    cout << endl;
 }
 
 //  Print all faculty and their information (by ascending id #)
 void optionTwo(BST<Faculty>* facTree){
-
+    cout << endl << "All faculty: " << endl;
+    printLevelOrderFaculty(facTree->getRoot());
+    cout << endl;
 }
 
 // Find and display student information given the students id
@@ -66,8 +154,9 @@ BST<Student>* optionSeven(BST<Student> *studTree){
 
     Student* a = new Student(addName, stoi(addID), addMajor, stod(addGPA), stoi(addAdvisor));
     studTree->add(*a);
-    cout << "Added student:: ";
+    cout << "\nAdded student: ";
     a->outputStudentInfo();
+    cout << endl;
 
     return studTree;
 
@@ -101,8 +190,9 @@ BST<Faculty>* optionNine(BST<Faculty> *facTree){
 
   Faculty* a = new Faculty(addName, stoi(addID), addDepartment, addStudents);
   facTree->add(*a);
-  cout << "Added Faculty Member:: ";
+  cout << "\nAdded Faculty Member:: ";
   a->outputFacultyInfo();
+    cout << endl;
 
   return facTree;
 }

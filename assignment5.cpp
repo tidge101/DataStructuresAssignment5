@@ -1,4 +1,5 @@
 #include <stack>
+#include <string>
 #include "menuOptions.cpp"
 
 
@@ -39,14 +40,36 @@ BST<Faculty>* readFacultyBST(string filename){
         string tempDepartment;
         vector<int> tempStudentList;
         Faculty* tempFac;
-
-        tempFac->setID(tempID);
-        tempFac->setName(tempName);
-        tempFac->setDepartment(tempDepartment);
-        tempFac->setStudents(tempStudentList);
-        // tempFac.
-        Node<Faculty>* newNode = new Node<Faculty>(*tempFac);
-
+        
+//        string line;
+//        getline(inFile, line);
+//        if(inFile.eof()){break;}
+//        cout << line;
+//        tempID = stoi(line);
+//        getline(inFile, line);
+//        if(inFile.eof()){break;}
+//        cout << line;
+//        tempName = line;
+//        getline(inFile, line);
+//        if(inFile.eof()){break;}
+//        tempDepartment = line;
+//        // Read in advisees
+//        while(getline(inFile, line))
+//            getline(inFile, line);
+//            if(inFile.eof()){break;}
+//            tempStudentList.push_back(stoi(line));
+//        }
+//    
+//        tempFac->setID(tempID);
+//        tempFac->setName(tempName);
+//        tempFac->setDepartment(tempDepartment);
+//        tempFac->setStudents(tempStudentList);
+//        // tempFac.
+//        
+//        cout << "Faculty read from tree: " << endl;
+//        tempFac->outputFacultyInfo();
+//        Node<Faculty>* newNode = new Node<Faculty>(*tempFac);
+//        bst->add(newNode->element);
     }
 
     //Populate BST with info read
@@ -60,6 +83,7 @@ BST<Student>* readStudentBST(string filename){
 
     // Read BST info from file and
     inFile.open(filename);
+    cout << endl;
     while(!inFile.eof()){
 
       int tempID;
@@ -67,17 +91,34 @@ BST<Student>* readStudentBST(string filename){
       double tempGPA;
       int tempAdvisor;
       string tempMajor;
-      Student* tempStudent;
-
+      Student* tempStudent = new Student();
+        string line;
+        getline(inFile, line);
+        if(inFile.eof()){break;}
+        tempID = stoi(line);
+        getline(inFile, line);
+        if(inFile.eof()){break;}
+        tempName = line;
+        getline(inFile, line);
+        if(inFile.eof()){break;}
+        tempGPA = stod(line);
+        getline(inFile, line);
+        if(inFile.eof()){break;}
+        tempMajor = line;
+        getline(inFile, line);
+        if(inFile.eof()){break;}
+        tempAdvisor = stoi(line);
+        
       tempStudent->setID(tempID);
       tempStudent->setName(tempName);
       tempStudent->setGPA(tempGPA);
       tempStudent->setMajor(tempMajor);
       tempStudent->setAdvisor(tempAdvisor);
 
-
+        cout << "Student read from tree: " << endl;
+        tempStudent->outputStudentInfo();
         Node<Student>* newNode = new Node<Student>(*tempStudent);
-
+        bst->add(newNode->element);
     }
 
     //Populate BST with info read
@@ -94,7 +135,7 @@ int main(int argc, char* argv[]){
 
 
     // Main functionality
-    while(true){
+outer:  while(true){
         printMenu();
 
         int choice = 0;
@@ -148,19 +189,19 @@ int main(int argc, char* argv[]){
         case 13:
             optionThirteen();
             break;
-        case 14: optionFourteen();
+        case 14:
+            // Write BSTs to files if they exist
+            if(!masterFaculty->empty()){
+                // Traverse and output all info to facultyTable.txt that must be read when deserializing
+                masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
+            }
+                
+            if(!masterStudent->empty()){
+                masterStudent->outputPreorderStudentToFile(masterStudent->getRoot(), "studentTable.txt");
+            }
+                optionFourteen();
             break;
         }
     }
 
-    // Write BSTs to files if they exist
-    if(!masterFaculty->empty()){
-        // Traverse and output all info to facultyTable.txt that must be read when deserializing
-        masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
-    }
-
-    if(!masterStudent->empty()){
-        masterStudent->outputPreorderStudentToFile(masterStudent->getRoot(), "studentTable.txt");
-
-    }
 }
