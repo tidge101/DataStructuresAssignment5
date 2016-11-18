@@ -90,8 +90,11 @@ Student::Student(string name, int IDNum, string major, double GPAInput, int Advi
 }
 
 void Student::outputStudentInfo(){
-  cout << "ID: " << getID() << " Name: " << getName() << " Advisor ID: ";
-  cout << getAdvisor() << " GPA: " << getGPA() << " Major: " << getMajor() << endl;
+  cout << "Name: " << getName() << endl;
+  cout << "ID: " << getID() << endl;
+  cout << "Advisor ID: " << getAdvisor() << endl;
+  cout << "GPA: " << getGPA() << endl;
+  cout << " Major: " << getMajor() << endl;
 }
 
 void Student::setGPA(double input){
@@ -129,7 +132,7 @@ class Faculty : public Person{
 
   public:
     Faculty(){};
-    Faculty(string name, int id, string depInput, vector<int> studentList);
+    Faculty(string name, int id, string depInput, vector<int>* studentList);
     ~Faculty(){};
 
     void operator = (Faculty* F) {
@@ -144,14 +147,14 @@ class Faculty : public Person{
     void setDepartment(string input);
     string getDepartment();
 
-    void setStudents(vector<int> input);
-    vector<int> getStudents();
+    void setStudents(vector<int>* input);
+    vector<int>* getStudents();
 
     void outputFacultyInfo();
 
 };
 
-Faculty::Faculty(string name, int id, string depInput, vector<int> studentList){
+Faculty::Faculty(string name, int id, string depInput, vector<int>* studentList){
   setDepartment(depInput);
   setStudents(studentList);
   setID(id);
@@ -166,7 +169,7 @@ void Faculty::VectorToString(vector<int> a){
 
 void Faculty::outputFacultyInfo(){
   cout << "ID: " << getID() << " Name: " << getName() << " Students' IDs: ";
-  VectorToString(getStudents());
+  VectorToString(*getStudents());
   cout << endl << " Department: " << getDepartment() << endl;
 }
 void Faculty::setDepartment(string input){
@@ -177,10 +180,10 @@ string Faculty::getDepartment(){
   return department;
 }
 
-void Faculty::setStudents(vector<int> input){
-  studentIDs = input;
+void Faculty::setStudents(vector<int>* input){
+  studentIDs = *input;
 }
 
-vector<int> Faculty::getStudents(){
-  return studentIDs;
+vector<int>* Faculty::getStudents(){
+  return &studentIDs;
 }

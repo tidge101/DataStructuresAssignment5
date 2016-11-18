@@ -1,6 +1,6 @@
 #include "BSTNode.cpp"
 #include "Person.cpp"
-
+BST<Faculty>* optionNine(BST<Faculty> *facTree);
 // Print all students and their information (by ascending id #)
 void optionOne(BST<Student>* studTree){
 
@@ -41,20 +41,32 @@ void optionFive(BST<Student> *studTree, BST<Faculty> *facTree, int id){
 }
 
 // Given a faculty id, print ALL the names and info of his/her advisees
-void optionSix(){
-
+void optionSix(BST<Faculty> *facTree, BST<Student> *studTree, int id){
+  if(facTree->search(id)){
+      Node<Faculty>* temp = facTree->fetch(id);
+      vector<int>* tempVec = temp->element.getStudents();
+      for (int i = 0; i < tempVec->size(); ++i){
+        optionThree(studTree, (*tempVec)[i]);
+      }
+  }
 }
 
 // Add a new student
-BST<Student>* optionSeven(BST<Student> *studTree){
-    string addName;
+BST<Student>* optionSeven(BST<Faculty> *facTree, BST<Student> *studTree){
+    string addFirstName;
+    string addLastName;
+    string addFullName;
     string addID;
     string addGPA;
     string addMajor;
     string addAdvisor;
+    string addYN;
 
-    cout << "Please enter student's name: " << endl;
-    cin >> addName;
+    cout << "Please enter student's first name: " << endl;
+    cin >> addFirstName;
+    cout << "Please emter student's last name: " << endl;
+    cin >>addLastName;
+    addFullName = addFirstName + " " + addLastName;
     cout << "Please enter student's ID Number: " << endl;
     cin >> addID;
     cout << "Please enter student's GPA: " << endl;
@@ -64,9 +76,24 @@ BST<Student>* optionSeven(BST<Student> *studTree){
     cout << "Please enter student's advisor's ID Number: " << endl;
     cin >> addAdvisor;
 
-    Student* a = new Student(addName, stoi(addID), addMajor, stod(addGPA), stoi(addAdvisor));
+    if(facTree->search(stoi(addAdvisor))){
+        Node<Faculty>* temp = facTree->fetch(stoi(addAdvisor));
+        vector<int> *tempVec = temp->element.getStudents();
+        tempVec->push_back(stoi(addID));
+      }
+    else{
+      cout << "Could not find faculty member. Would you like to add a new member? (Y/N)" << endl;
+      cin >> addYN;
+      if (addYN == "N" || addYN == "n"){
+        cout << "Student will not be added. Returning to main menu." << endl;
+        return studTree;}
+      else{
+        optionNine(facTree);
+      }
+    }
+    Student* a = new Student(addFullName, stoi(addID), addMajor, stod(addGPA), stoi(addAdvisor));
     studTree->add(*a);
-    cout << "Added student:: ";
+    cout << "Added student! ";
     a->outputStudentInfo();
 
     return studTree;
@@ -83,7 +110,7 @@ BST<Faculty>* optionNine(BST<Faculty> *facTree){
   string addName;
   string addID;
   string addDepartment;
-  vector<int> addStudents;
+  vector<int>* addStudents;
 
   cout << "Please enter faculty's name: " << endl;
   cin >> addName;
@@ -95,7 +122,7 @@ BST<Faculty>* optionNine(BST<Faculty> *facTree){
   int tempVal;
   while(cin>>tempVal){
     if (tempVal == 0){break;}
-    else{addStudents.push_back(tempVal);}
+    else{addStudents->push_back(tempVal);}
   }
 
 

@@ -37,7 +37,7 @@ BST<Faculty>* readFacultyBST(string filename){
         int tempID;
         string tempName;
         string tempDepartment;
-        vector<int> tempStudentList;
+        vector<int>* tempStudentList;
         Faculty* tempFac;
 
         tempFac->setID(tempID);
@@ -109,46 +109,71 @@ int main(int argc, char* argv[]){
         int studentIDToFetch = 0;
         int facultyIDToFetch = 0;
         switch(choice){
-        case 1: optionOne(masterStudent);
+        case 1:
+            //Print all students and their information (sorted by ascending id #)
+            optionOne(masterStudent);
             break;
-        case 2: optionTwo(masterFaculty);
+        case 2:
+            //Print all faculty and their information (sorted by ascending id #)
+            optionTwo(masterFaculty);
             break;
         case 3:
-            cout << "Please enter ID of Student to print info of: ";
+            //Find and display student information given the students id
+            cout << "Please enter ID of Student to view their information: ";
             cin >> studentIDToFetch;
             cout << endl;
             optionThree(masterStudent, studentIDToFetch);
             break;
         case 4:
-            cout << "Please enter ID of Student to print info of: ";
+            //Find and display faculty information given the faculty id
+            cout << "Please enter ID of Faculty Member to view their information: ";
             cin >> facultyIDToFetch;
             cout << endl;
             optionFour(masterFaculty, facultyIDToFetch);
             break;
         case 5:
+            //Given a student’s id, print the name and info of their faculty advisor
             cout << "Please enter ID of student to print their advisor's information: ";
             cin >> studentIDToFetch;
             cout << endl;
             optionFive(masterStudent, masterFaculty, studentIDToFetch);
             break;
-        case 6: optionSix();
+        case 6:
+            //Given a faculty id, print ALL the names and info of his/her advisees
+            cout << "Please emter ID of Faculty member to view their advisee's information: ";
+            cin >> facultyIDToFetch;
+            optionSix(masterFaculty, masterStudent, facultyIDToFetch);
             break;
-        case 7: optionSeven(masterStudent);
+        case 7:
+            //Add a new student
+            optionSeven(masterFaculty, masterStudent);
             break;
-        case 8: optionEight();
+        case 8:
+            //Delete a student given the id
+            optionEight();
             break;
-        case 9: optionNine(masterFaculty);
+        case 9:
+            //Add a new faculty member
+            optionNine(masterFaculty);
             break;
-        case 10: optionTen();
+        case 10:
+            //Delete a faculty member given the id
+            optionTen();
             break;
-        case 11: optionEleven();
+        case 11:
+            //Change a student’s advisor given the student id and the new faculty id
+            optionEleven();
             break;
-        case 12: optionTwelve();
+        case 12:
+            //Remove an advisee from a faculty member given the ids
+            optionTwelve();
             break;
         case 13:
+            //Rollback
             optionThirteen();
             break;
-        case 14: optionFourteen();
+        case 14:
+            //exit
             break;
         }
     }
