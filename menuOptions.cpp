@@ -200,7 +200,7 @@ BST<Faculty>* optionNine(BST<Faculty> *facTree){
   string addName;
   string addID;
   string addDepartment;
-  vector<int>* addStudents;
+  vector<int>* addStudents = new vector<int>();
 
   cout << "Please enter faculty's name: " << endl;
   cin >> addName;
@@ -231,13 +231,38 @@ BST<Faculty>* optionTen(){
 }
 
 // Change a student’s advisor given the student id and the new faculty id
-BST<Student>* optionEleven(){
-
+BST<Student>* optionEleven(BST<Student>* studTree, int id){
+    if(studTree->search(id)){
+        Node<Student>* temp = studTree->fetch(id);
+        int tempID;
+        cout << "Enter the ID of the student's new advisor: ";
+        cin >> tempID;
+        temp->setAdvisor(tempID);
+    }
+    else{
+        cout << "This student could not be found! Returning to menu\n" << endl;
+    }
+    return studTree;
 }
 
 // Remove an advisee from a faculty member given the ids
-BST<Faculty>* optionTwelve(){
-
+BST<Faculty>* optionTwelve(BST<Faculty>* facTree, int id){
+    if(facTree->search(id)){
+        Node<Faculty>* temp = facTree->fetch(id);
+        int tempID;
+        cout << "Enter ID of student to remove: ";
+        cin >> tempID;
+        vector<int>* tempVec = temp->element.getStudents();
+        for(int i = 0; i < tempVec->size(); ++i){
+            if((*tempVec)[i] == tempID){
+                tempVec->erase(tempVec->begin() + i);
+            }
+        }
+    }
+    else{
+        cout << "This faculty member could not be found! Returning to menu\n" << endl;
+    }
+    return facTree;
 }
 
 // Rollback

@@ -203,31 +203,34 @@ outer:  while(true){
             break;
         case 11:
             //Change a student’s advisor given the student id and the new faculty id
-            optionEleven();
+                cout << "Please enter ID of Student to change their advisor: ";
+                cin >> studentIDToFetch;
+                cout << endl;
+            optionEleven(masterStudent, studentIDToFetch);
             break;
         case 12:
             //Remove an advisee from a faculty member given the ids
-            optionTwelve();
+                cout << "Please enter ID of Faculty to remove an advisee from their list: ";
+                cin >> facultyIDToFetch;
+                cout << endl;
+            optionTwelve(masterFaculty, facultyIDToFetch);
             break;
         case 13:
             //Rollback
             optionThirteen();
             break;
         case 14:
-<<<<<<< HEAD
             // Write BSTs to files if they exist
             if(!masterFaculty->empty()){
                 // Traverse and output all info to facultyTable.txt that must be read when deserializing
-                masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
+                //masterFaculty->outputPreorderFacultyToFile(masterFaculty->getRoot(), "facultyTable.txt");
             }
                 
             if(!masterStudent->empty()){
                 masterStudent->outputPreorderStudentToFile(masterStudent->getRoot(), "studentTable.txt");
             }
                 optionFourteen();
-=======
             //exit
->>>>>>> 656f0d83292cb2076ebd20bd3513968f8817aa05
             break;
         }
     }
